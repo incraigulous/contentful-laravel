@@ -1,0 +1,21 @@
+{
+    "name": "incraigulous/contentful",
+    "description": "",
+    "authors": [
+        {
+            "name": "Craig Wann",
+            "email": "craig@churchonthemove.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "4.2.*",
+        "guzzlehttp/guzzle": "5.1.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Incraigulous\\Contentful": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
