@@ -35,7 +35,7 @@ class ContentfulServiceProvider extends ServiceProvider {
 	{
 		$this->app['contentful'] = $this->app->share(function($app)
 		{
-			return new Client(Config::get('contentful::space'), Config::get('contentful::token'));
+            return new Client(config('contentful.space'), config('contentful.token'));
 		});
 		$this->app->booting(function()
 		{
