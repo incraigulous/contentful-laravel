@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: incraigulous
- * Date: 1/16/15
- * Time: 4:16 PM
- */
-
 namespace Incraigulous\Contentful;
 
 use GuzzleHttp;
