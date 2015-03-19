@@ -21,7 +21,7 @@ class ContentfulServiceProvider extends ServiceProvider {
 	public function boot()
 	{
         $this->publishes([
-            __DIR__.'/../../config/config.php' => config_path('contenful.php'),
+            __DIR__.'/../../config/config.php' => config_path('contentful.php'),
         ]);
 		//$this->package('incraigulous/contentful');
 	}
