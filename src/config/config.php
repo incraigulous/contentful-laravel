@@ -11,6 +11,6 @@ return array(
     */
 
     'space' => '',
-    'token' => ''
-
+    'token' => '',
+    'oauthToken' => ''
 );
