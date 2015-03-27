@@ -27,7 +27,7 @@ class ContentfulServiceProvider extends ServiceProvider {
 	}
 
 	/**
-	 * Register the service provider.
+	 * Register the service provider. Create Facades for both the Delivery and the Management SDKs.
 	 *
 	 * @return void
 	 */

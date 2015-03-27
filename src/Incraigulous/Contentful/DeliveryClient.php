@@ -13,7 +13,8 @@ class DeliveryClient extends ClientBase {
      * @param array $query
      * @return mixed
      */
-    function call($resource, $query = array()) {
+    function call($resource, $query = array())
+    {
         return $this->get($resource, $query);
     }
 }

@@ -2,7 +2,6 @@
 namespace Incraigulous\Contentful;
 
 use GuzzleHttp;
-use Incraigulous\Contentful\ClientInterface;
 
 class ManagementClient extends ClientBase {
     protected $endpointBase = 'https://api.contentful.com/spaces/';
@@ -11,43 +10,44 @@ class ManagementClient extends ClientBase {
      * Get the content type for post/put requests.
      * @return string
      */
-    function getContentType() {
-        return "application/vnd.contentful.management.v1+json'";
+    function getContentType()
+    {
+        return "application/vnd.contentful.management.v1+json";
     }
 
     /**
      * Build and make a POST request.
      * @param $resource
-     * @param array $query
+     * @param array $payload
      * @return GuzzleHttp\Message\FutureResponse|GuzzleHttp\Message\ResponseInterface|GuzzleHttp\Ring\Future\FutureInterface|mixed|null
      */
-    function post($resource, $query = array()) {
+    function post($resource, $payload = array())
+    {
         return $this->client->post($this->build_url($resource), [
             'headers' => [
                 'Content-Type' => $this->getContentType(),
                 'Authorization' => $this->getBearer(),
+                'Content-Length' => strlen(json_encode($payload)),
             ],
-            'body' => [
-                json_encode($query)
-            ]
+            'body' => json_encode($payload)
         ]);
     }
 
     /**
      * Build and make a PUT request.
      * @param $resource
-     * @param array $query
+     * @param array $payload
      * @return GuzzleHttp\Message\FutureResponse|GuzzleHttp\Message\ResponseInterface|GuzzleHttp\Ring\Future\FutureInterface|mixed|null
      */
-    function put($resource, $query = array()) {
+    function put($resource, $payload = array())
+    {
         return $this->client->put($this->build_url($resource), [
             'headers' => [
                 'Content-Type' => $this->getContentType(),
                 'Authorization' => $this->getBearer(),
+                'Content-Length' => strlen(json_encode($payload)),
             ],
-            'body' => [
-                json_encode($query)
-            ]
+            'body' => json_encode($payload)
         ]);
     }
 
@@ -56,8 +56,9 @@ class ManagementClient extends ClientBase {
      * @param $resource
      * @return GuzzleHttp\Message\FutureResponse|GuzzleHttp\Message\ResponseInterface|GuzzleHttp\Ring\Future\FutureInterface|mixed|null
      */
-    function delete($resource) {
-        return $this->client->put($this->build_url($resource), [
+    function delete($resource)
+    {
+        return $this->client->delete($this->build_url($resource), [
             'headers' => [
                 'Authorization' => $this->getBearer(),
             ]
