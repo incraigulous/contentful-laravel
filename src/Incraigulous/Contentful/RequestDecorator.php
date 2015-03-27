@@ -46,7 +46,7 @@ class RequestDecorator {
     function makeResource()
     {
         $resource = $this->resource;
-        if ($this->id) $resource . '/' . $this->id;
+        if ($this->id) $resource .= '/' . $this->id;
         return $resource;
     }
 
