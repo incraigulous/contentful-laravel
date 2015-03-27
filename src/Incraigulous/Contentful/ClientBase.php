@@ -10,6 +10,7 @@ abstract class ClientBase implements ClientInterface {
     private $spaceId;
     private $accessToken;
     protected $endpointBase;
+    protected $temporaryHeaders;
 
     function __construct($spaceId, $accessToken) {
         $this->spaceId = $spaceId;
@@ -45,13 +46,14 @@ abstract class ClientBase implements ClientInterface {
      * Make a get request.
      * @param $resource
      * @param array $query
+     * @param array $headers
      * @return mixed
      */
-    function get($resource, $query = array()) {
+    function get($resource, $query = array(), $headers = array()) {
         return $this->client->get($this->build_url($resource, $query), [
-            'headers' => [
+            'headers' => array_merge([
                 'Authorization' => $this->getBearer()
-            ]
+            ], $headers)
         ])->json();
     }
 

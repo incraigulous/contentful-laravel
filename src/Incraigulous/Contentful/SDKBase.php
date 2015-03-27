@@ -73,12 +73,13 @@ abstract class SDKBase {
     }
 
     /**
-     * Limit results by content type.
+     * Target content type.
      * @param $contentType
      * @return $this
      */
     function contentType($contentType)
     {
+        $this->requestDecorator->addHeader('X-Contentful-Content-Type', $contentType);
         $this->requestDecorator->addParameter('content_type', '=', $contentType);
         return $this;
     }

@@ -15,6 +15,7 @@ class RequestDecorator {
     protected $resource;
     protected $payload;
     protected $id;
+    protected $headers = array();
 
     function __construct(array $request = array())
     {
@@ -48,6 +49,15 @@ class RequestDecorator {
     function addParameter($field, $operator, $value)
     {
         $this->query[] = [$field, $operator, $value];
+    }
+
+    /**
+     * Add a request header.
+     * @param $key
+     * @param $value
+     */
+    function addHeader($key, $value) {
+        $this->headers[$key] = $value;
     }
 
     /**
@@ -116,6 +126,14 @@ class RequestDecorator {
      */
     function makePayload() {
         return $this->payload;
+    }
+
+    /**
+     * Return the headers array.
+     * @return array
+     */
+    function makeHeaders() {
+        return $this->headers;
     }
 
     /**
