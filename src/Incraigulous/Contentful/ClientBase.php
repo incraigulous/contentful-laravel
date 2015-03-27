@@ -61,7 +61,7 @@ abstract class ClientBase implements ClientInterface {
      * @param $query
      * @return string
      */
-    function build_url($resource, $query) {
+    function build_url($resource, array $query = array()) {
         $url = $this->getEndpoint();
         if ($resource) $url .= '/' . $resource;
         if (!empty($query)) $url .= '?' . http_build_query($query);

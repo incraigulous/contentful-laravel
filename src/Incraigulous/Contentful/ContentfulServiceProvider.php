@@ -35,11 +35,11 @@ class ContentfulServiceProvider extends ServiceProvider {
 	{
 		$this->app['contentful'] = $this->app->share(function($app)
 		{
-            return new DeliveryClient(config('contentful.space'), config('contentful.token'));
+            return new DeliverySDK(config('contentful.space'), config('contentful.token'));
 		});
         $this->app['contentfulManagement'] = $this->app->share(function($app)
         {
-            return new ManagementClient(config('contentful.space'), config('contentful.oauthToken'));
+            return new ManagementSDK(config('contentful.space'), config('contentful.oauthToken'));
         });
 		$this->app->booting(function()
 		{

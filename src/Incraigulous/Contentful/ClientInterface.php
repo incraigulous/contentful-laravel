@@ -42,5 +42,5 @@ interface ClientInterface {
      * @param $query
      * @return string
      */
-    function build_url($resource, $query);
+    function build_url($resource, array $query = array());
 }
