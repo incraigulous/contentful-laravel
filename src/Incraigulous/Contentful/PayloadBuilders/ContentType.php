@@ -19,7 +19,7 @@ class ContentType implements PayloadBuilderInterface {
      */
     function make()
     {
-        return[
+        return [
             'name' => $this->name,
             'displayField' => $this->displayField,
             'fields' => $this->contentTypeFields

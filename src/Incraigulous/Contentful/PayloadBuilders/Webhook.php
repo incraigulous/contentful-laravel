@@ -3,6 +3,7 @@ namespace Incraigulous\Contentful\PayloadBuilders;
 
 class Webhook implements PayloadBuilderInterface {
     protected $url;
+
     function __construct($url)
     {
         $this->url = $url;
@@ -14,6 +15,6 @@ class Webhook implements PayloadBuilderInterface {
      */
     function make()
     {
-        return array('url' => $this->url);
+        return ['url' => $this->url];
     }
 }

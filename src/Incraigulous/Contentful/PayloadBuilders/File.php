@@ -21,7 +21,7 @@ class File implements PayloadBuilderInterface {
      */
     function make()
     {
-        return['file' => [$this->language =>
+        return ['file' => [$this->language =>
                 [
                     'contentType' => $this->contentType,
                     'fileName' => $this->fileName,

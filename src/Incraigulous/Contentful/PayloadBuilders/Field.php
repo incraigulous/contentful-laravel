@@ -5,6 +5,7 @@ class Field implements PayloadBuilderInterface {
     protected $field;
     protected $content;
     protected $language;
+
     function __construct($field, $content, $language = 'en-US')
     {
         $this->field = $field;
@@ -18,6 +19,6 @@ class Field implements PayloadBuilderInterface {
      */
     function make()
     {
-        return[$this->field => [$this->language => $this->content]];
+        return [$this->field => [$this->language => $this->content]];
     }
 }

@@ -3,6 +3,7 @@ namespace Incraigulous\Contentful\PayloadBuilders;
 
 class Space implements PayloadBuilderInterface {
     protected $name;
+
     function __construct($name)
     {
         $this->name = $name;
@@ -14,6 +15,6 @@ class Space implements PayloadBuilderInterface {
      */
     function make()
     {
-        return['name' => $this->name];
+        return ['name' => $this->name];
     }
 }
