@@ -50,7 +50,9 @@ class ManagementSDK extends SDKBase {
     function post($payload)
     {
         $this->requestDecorator->setPayload($payload);
-        return $this->client->post($this->requestDecorator->makeResource(), $this->requestDecorator->makePayload(), $this->requestDecorator->makeHeaders());
+        $result = $this->client->post($this->requestDecorator->makeResource(), $this->requestDecorator->makePayload(), $this->requestDecorator->makeHeaders());
+        $this->refresh();
+        return $result;
     }
 
     /**
@@ -67,7 +69,9 @@ class ManagementSDK extends SDKBase {
         if ($previousVersion) {
             $this->requestDecorator->addHeader('X-Contentful-Version', $previousVersion);
         }
-        return $this->client->put($this->requestDecorator->makeResource(), $this->requestDecorator->makePayload(), $this->requestDecorator->makeHeaders());
+        $result = $this->client->put($this->requestDecorator->makeResource(), $this->requestDecorator->makePayload(), $this->requestDecorator->makeHeaders());
+        $this->refresh();
+        return $result;
     }
 
     /**
@@ -78,7 +82,9 @@ class ManagementSDK extends SDKBase {
     function delete($id)
     {
         $this->requestDecorator->setId($id);
-        return $this->client->delete($this->requestDecorator->makeResource(), $this->requestDecorator->makeHeaders());
+        $result = $this->client->delete($this->requestDecorator->makeResource(), $this->requestDecorator->makeHeaders());
+        $this->refresh();
+        return $result;
     }
 
     /**
@@ -91,7 +97,9 @@ class ManagementSDK extends SDKBase {
     {
         $this->requestDecorator->setId($id  . '/published');
         $this->requestDecorator->addHeader('X-Contentful-Version', $previousVersion);
-        return $this->client->put($this->requestDecorator->makeResource(), $this->requestDecorator->makePayload(), $this->requestDecorator->makeHeaders());
+        $result = $this->client->put($this->requestDecorator->makeResource(), $this->requestDecorator->makePayload(), $this->requestDecorator->makeHeaders());
+        $this->refresh();
+        return $result;
     }
 
     /**
@@ -104,7 +112,9 @@ class ManagementSDK extends SDKBase {
     {
         $this->requestDecorator->setId($id  . '/published');
         $this->requestDecorator->addHeader('X-Contentful-Version', $previousVersion);
-        return $this->client->delete($this->requestDecorator->makeResource(), $this->requestDecorator->makePayload(), $this->requestDecorator->makeHeaders());
+        $result = $this->client->delete($this->requestDecorator->makeResource(), $this->requestDecorator->makePayload(), $this->requestDecorator->makeHeaders());
+        $this->refresh();
+        return $result;
     }
 
     /**
@@ -115,7 +125,9 @@ class ManagementSDK extends SDKBase {
     function archive($id)
     {
         $this->requestDecorator->setId($id  . '/archived');
-        return $this->client->put($this->requestDecorator->makeResource(), $this->requestDecorator->makePayload(), $this->requestDecorator->makeHeaders());
+        $result = $this->client->put($this->requestDecorator->makeResource(), $this->requestDecorator->makePayload(), $this->requestDecorator->makeHeaders());
+        $this->refresh();
+        return $result;
     }
 
     /**
@@ -126,7 +138,23 @@ class ManagementSDK extends SDKBase {
     function unarchive($id)
     {
         $this->requestDecorator->setId($id  . '/archived');
-        return $this->client->delete($this->requestDecorator->makeResource(), $this->requestDecorator->makePayload(), $this->requestDecorator->makeHeaders());
+        $result = $this->client->delete($this->requestDecorator->makeResource(), $this->requestDecorator->makePayload(), $this->requestDecorator->makeHeaders());
+        $this->refresh();
+        return $result;
+    }
+
+    /**
+     * Process an asset.
+     * @param $id
+     * @param string $language
+     * @return mixed
+     */
+    function process($id, $language = 'en-US')
+    {
+        $this->requestDecorator->setId($id  . '/files/' . $language . '/process');
+        $result = $this->client->delete($this->requestDecorator->makeResource(), $this->requestDecorator->makePayload(), $this->requestDecorator->makeHeaders());
+        $this->refresh();
+        return $result;
     }
 
 }

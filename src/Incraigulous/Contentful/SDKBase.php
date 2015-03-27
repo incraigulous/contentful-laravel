@@ -9,13 +9,24 @@
 namespace Incraigulous\Contentful;
 
 abstract class SDKBase {
+    protected $spaceId;
+    protected $accessToken;
     protected $client;
     protected $requestDecorator;
     protected $clientClassName;
 
     function __construct($spaceId, $accessToken)
     {
-        $this->client = new $this->clientClassName($spaceId, $accessToken);
+        $this->spaceId = $spaceId;
+        $this->accessToken = $accessToken;
+        $this->refresh();
+    }
+
+    /**
+     * Init and store a new client and decorator.
+     */
+    function refresh() {
+        $this->client = new $this->clientClassName($this->spaceId, $this->accessToken);
         $this->requestDecorator = new RequestDecorator();
     }
 
@@ -243,7 +254,9 @@ abstract class SDKBase {
      */
     function get()
     {
-        return $this->client->get($this->requestDecorator->makeResource(), $this->requestDecorator->makeQuery());
+        $result = $this->client->get($this->requestDecorator->makeResource(), $this->requestDecorator->makeQuery());
+        $this->refresh();
+        return $result;
     }
 
     /**
