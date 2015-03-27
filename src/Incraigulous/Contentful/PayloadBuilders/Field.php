@@ -9,7 +9,7 @@ class Field implements PayloadBuilderInterface {
     {
         $this->field = $field;
         $this->content = $content;
-        $this->defaultLanguage = $language;
+        $this->language = $language;
     }
 
     /**
