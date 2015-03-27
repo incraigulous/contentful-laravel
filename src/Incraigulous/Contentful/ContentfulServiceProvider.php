@@ -1,8 +1,9 @@
 <?php namespace Incraigulous\Contentful;
 
 use Illuminate\Support\ServiceProvider;
-use Incraigulous\Contentful\Facades\Contentful;
 use \Config as Config;
+use Incraigulous\ContentfulSDK\DeliverySDK;
+use Incraigulous\ContentfulSDK\ManagementSDK;
 
 class ContentfulServiceProvider extends ServiceProvider {
 
@@ -35,11 +36,11 @@ class ContentfulServiceProvider extends ServiceProvider {
 	{
 		$this->app['contentful'] = $this->app->share(function($app)
 		{
-            return new DeliverySDK(config('contentful.space'), config('contentful.token'));
+            return new DeliverySDK(config('contentful.space'), config('contentful.token'), new Cacher());
 		});
         $this->app['contentfulManagement'] = $this->app->share(function($app)
         {
-            return new ManagementSDK(config('contentful.space'), config('contentful.oauthToken'));
+            return new ManagementSDK(config('contentful.space'), config('contentful.oauthToken', new Cacher()));
         });
 		$this->app->booting(function()
 		{

@@ -8,4 +8,14 @@ class Contentful extends Facade {
      * @return  string
      */
     protected static function getFacadeAccessor() { return 'contentful'; }
+
+    /**
+     * Get the root object behind the facade.
+     *
+     * @return \Incraigulous\ContentfulSDK\ManagementSDK
+     */
+    public static function getFacadeRoot()
+    {
+        return static::resolveFacadeInstance(static::getFacadeAccessor());
+    }
 }
