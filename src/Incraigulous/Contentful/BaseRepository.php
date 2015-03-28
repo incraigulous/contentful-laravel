@@ -3,6 +3,9 @@ namespace Incraigulous\Contentful;
 
 use Illuminate\Support\Collection;
 use Contentful;
+use ContentfulManagement;
+use Incraigulous\ContentfulSDK\PayloadBuilders\Entry;
+use Incraigulous\ContentfulSDK\PayloadBuilders\Field;
 
 abstract class BaseRepository {
     protected $id;
@@ -34,6 +37,20 @@ abstract class BaseRepository {
                 ->limitByType($this->id)
                 ->find($id)
                 ->get()
+        );
+    }
+
+    /**
+     * Create an entry in Contentful.
+     * @param $id
+     * @return Collection
+     */
+    public function create($fields)
+    {
+        return $this->getModel(
+            ContentfulManagement::assets()
+                ->contentType($this->id)
+                ->post(new Entry($fields))
         );
     }
 

@@ -6,7 +6,7 @@ return array(
     | Contentful API Space
     |--------------------------------------------------------------------------
     |
-    | Get this from the contentful api panel.
+    | Get this from the Contentful api panel.
     |
     */
 
@@ -17,7 +17,7 @@ return array(
     | Contentful API Token
     |--------------------------------------------------------------------------
     |
-    | Get this from the contentful api panel.
+    | Get this from the Contentful api panel.
     |
     */
     'token' => '',
@@ -27,8 +27,8 @@ return array(
     | Contentful oAuth Token (needed for management API only)
     |--------------------------------------------------------------------------
     |
-    | Insturctions for generating an oAuth token can be found in the Contentful's
-    | Management API documentation. If you are generating it programatically, you
+    | Instructions for generating an oAuth token can be found in the Contentful's
+    | Management API documentation. If you are generating it dynamically, you
     | should create your own Facade for the management API.
     |
     */
@@ -39,7 +39,7 @@ return array(
     | Cache Tag
     |--------------------------------------------------------------------------
     |
-    | Cache tag to make sure we can target and clear only contentful cached items.
+    | Cache tag to make sure we can target and clear only Contentful cached items.
     |
     */
     'cacheTag' => 'contentful',
