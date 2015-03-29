@@ -1,6 +1,8 @@
 <?php namespace Incraigulous\Contentful;
 
 use Illuminate\Support\ServiceProvider;
+use Incraigulous\Contentful\Console\Commands\CreateWebhook;
+use Incraigulous\Contentful\Console\Commands\Listen;
 use Incraigulous\ContentfulSDK\DeliverySDK;
 use Incraigulous\ContentfulSDK\ManagementSDK;
 
@@ -21,9 +23,22 @@ class ContentfulServiceProvider extends ServiceProvider {
 	public function boot()
 	{
         include __DIR__.'/../../routes.php';
+
         $this->publishes([
             __DIR__.'/../../config/config.php' => config_path('contentful.php'),
         ]);
+
+        $this->commands(['contenful:create-webhook', 'contenful:listen']);
+
+        $this->app['contenful:create-webhook'] = $this->app->share(function($app)
+        {
+            return new CreateWebhook;
+        });
+
+        $this->app['contenful:listen'] = $this->app->share(function($app)
+        {
+            return new Listen;
+        });
 	}
 
 	/**
