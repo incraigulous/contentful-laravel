@@ -32,7 +32,7 @@ class CreateWebhook extends Command {
             return;
         }
 
-        echo 'Webhook for url ' . $this->option('url') . ' successfully created.';
+        echo 'Webhook for url ' . $this->option('url') . ' successfully created';
         echo PHP_EOL;
     }
 
