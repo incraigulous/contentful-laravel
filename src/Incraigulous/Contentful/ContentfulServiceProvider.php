@@ -20,6 +20,7 @@ class ContentfulServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
+        include __DIR__.'/../../routes.php';
         $this->publishes([
             __DIR__.'/../../config/config.php' => config_path('contentful.php'),
         ]);
