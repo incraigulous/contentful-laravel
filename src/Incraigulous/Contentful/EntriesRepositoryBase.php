@@ -33,7 +33,12 @@ abstract class EntriesRepositoryBase {
      */
     public function find($id)
     {
-        return $this->getModel($this->get($id));
+        return $this->getModel(
+            Contentful::entries()
+                ->limitByType($this->id)
+                ->find($id)
+                ->get()
+        );
     }
 
     /**
