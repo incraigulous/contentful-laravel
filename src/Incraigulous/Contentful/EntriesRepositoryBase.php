@@ -8,7 +8,7 @@ use Incraigulous\ContentfulSDK\PayloadBuilders\Entry;
 use Incraigulous\ContentfulSDK\PayloadBuilders\Field;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
-abstract class BaseRepository {
+abstract class EntriesRepositoryBase {
     protected $id;
     protected $cacheTime = 30;
     protected $cacheTag = 'contentful';
@@ -85,7 +85,7 @@ abstract class BaseRepository {
     }
 
     /**
-     * Update an entry in contentful.
+     * Update an entry in Contentful.
      * @param $id
      * @param array $payload
      * @return mixed
@@ -95,9 +95,70 @@ abstract class BaseRepository {
         foreach($payload['fields'] as $key => $field) {
             $payload['fields'][$key] = new Field($key, $field);
         }
+
         return ContentfulManagement::entries()
             ->contentType($this->id)
-            ->put($id, $payload, $payload['sys']['version']);
+            ->put($id, $payload);
+    }
+
+    /**
+     * Unpublish a Contentful entry.
+     * @param $id
+     * @param $previousVersionOrPayload
+     * @return mixed
+     */
+    public function unpublish($id, $previousVersionOrPayload)
+    {
+        if (is_array($previousVersionOrPayload)) {
+            $previousVersion = $previousVersionOrPayload['sys']['version'];
+        } else {
+            $previousVersion = $previousVersionOrPayload;
+        }
+
+        return ContentfulManagement::entries()
+            ->contentType($this->id)
+            ->unpublish($id, $previousVersion);
+    }
+
+    /**
+     * Publish a Contentful entry.
+     * @param $id
+     * @param $previousVersionOrPayload
+     * @return mixed
+     */
+    public function publish($id, $previousVersionOrPayload)
+    {
+        if (is_array($previousVersionOrPayload)) {
+            $previousVersion = $previousVersionOrPayload['sys']['version'];
+        } else {
+            $previousVersion = $previousVersionOrPayload;
+        }
+
+        return ContentfulManagement::entries()
+            ->contentType($this->id)
+            ->publish($id, $previousVersion);
+    }
+
+    /**
+     * Archive a Contentful entry.
+     * @param $id
+     * @return mixed
+     */
+    public function archive($id) {
+        return ContentfulManagement::entries()
+            ->contentType($this->id)
+            ->archive($id);
+    }
+
+    /**
+     * Unarchive a Contentful entry.
+     * @param $id
+     * @return mixed
+     */
+    public function unarchive($id) {
+        return ContentfulManagement::entries()
+            ->contentType($this->id)
+            ->unarchive($id);
     }
 
     /**
@@ -105,9 +166,10 @@ abstract class BaseRepository {
      * @param $result
      * @return Collection
      */
-    protected function getCollection($result) {
+    protected function getCollection($result)
+    {
         $items = array();
-        foreach($result['items'] as $item) {
+        foreach ($result['items'] as $item) {
             $items[] = $this->getModel($item['fields']);
         }
         return new Collection($items);

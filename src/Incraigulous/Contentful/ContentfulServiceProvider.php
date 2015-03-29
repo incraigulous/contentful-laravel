@@ -1,7 +1,6 @@
 <?php namespace Incraigulous\Contentful;
 
 use Illuminate\Support\ServiceProvider;
-use \Config as Config;
 use Incraigulous\ContentfulSDK\DeliverySDK;
 use Incraigulous\ContentfulSDK\ManagementSDK;
 
