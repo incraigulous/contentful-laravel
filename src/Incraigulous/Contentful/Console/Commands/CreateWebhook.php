@@ -25,7 +25,7 @@ class CreateWebhook extends Command {
         echo PHP_EOL;
 
         try {
-            ContentfulManagement::webhook()->post(new Webhook($this->option('url')));
+            ContentfulManagement::webhooks()->post(new Webhook($this->option('url')));
         } catch (Exception $ex) {
             echo $ex->getMessage();
             echo PHP_EOL;

@@ -32,7 +32,7 @@ class Listen extends Command {
 
     public function create() {
         try {
-            ContentfulManagement::webhook()->put($this->getWebhookId(), new Webhook($this->option('url')));
+            ContentfulManagement::webhooks()->put($this->getWebhookId(), new Webhook($this->option('url')));
         } catch (Exception $ex) {
             echo $ex->getMessage();
             echo PHP_EOL;
@@ -60,7 +60,7 @@ class Listen extends Command {
         echo 'Process termination registered';
         echo PHP_EOL;
         try {
-            ContentfulManagement::webhook()->delete($this->getWebhookId());
+            ContentfulManagement::webhooks()->delete($this->getWebhookId());
         } catch (Exception $ex) {
             echo $ex->getMessage();
             echo PHP_EOL;
