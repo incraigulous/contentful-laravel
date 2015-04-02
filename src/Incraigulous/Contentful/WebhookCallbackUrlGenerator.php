@@ -1,7 +1,7 @@
 <?php
 namespace Incraigulous\Contentful;
 use URL;
-class WebhookoCallbackUrlGenerator {
+class WebhookCallbackUrlGenerator {
     protected $defaultWebhookCallback;
     function __construct()
     {
