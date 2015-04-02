@@ -47,11 +47,11 @@ Key  | Name | Description
 ------------- | ------------- | -------------
 space | Contentful API Space | Get this from the Contentful api panel
 token  | Contentful API Token | Get this from the Contentful api panel
-oauthToken  | Contentful oAuth Token | Needed for management SDK only*
+oauthToken  | Contentful oAuth Token | Needed for management SDK only
 cacheTag  | Cache Tag | To make sure we can target and clear only Contentful items
 cacheTime  | Cache Time | In minutes.
 
-####*Obtaining your oAuth token
+####Obtaining your oAuth token
 
 Instructions for generating an oAuth token can be found in Contentful's [Management API documentation]((https://www.contentful.com/developers/documentation/content-management-api/#authentication)). If you are getting your key dynamically, you could create your own Facade for the Management SDK and load it there.
 
