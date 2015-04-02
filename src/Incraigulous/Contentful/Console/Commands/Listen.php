@@ -4,7 +4,7 @@ namespace Incraigulous\Contentful\Console\Commands;
 use Illuminate\Console\Command;
 use Incraigulous\ContentfulSDK\PayloadBuilders\Webhook;
 use Symfony\Component\Console\Input\InputOption;
-use URL;
+use Incraigulous\Contentful\WebhookCallbackUrlGenerator;
 use ContentfulManagement;
 use Exception;
 
@@ -79,7 +79,7 @@ class Listen extends Command {
     protected function getOptions()
     {
         return [
-            ['url', null, InputOption::VALUE_OPTIONAL, 'Destination URL for the Contentful webhook', URL::to('/') . '/contentful/flush'],
+            ['url', null, InputOption::VALUE_OPTIONAL, 'Destination URL for the Contentful webhook', (new WebhookCallbackUrlGenerator())->make()],
         ];
     }
 

@@ -2,6 +2,7 @@
 namespace Incraigulous\Contentful\Console\Commands;
 
 use Illuminate\Console\Command;
+use Incraigulous\Contentful\WebhookCallbackUrlGenerator;
 use Incraigulous\ContentfulSDK\PayloadBuilders\Webhook;
 use Symfony\Component\Console\Input\InputOption;
 use URL;
@@ -45,7 +46,7 @@ class CreateWebhook extends Command {
     protected function getOptions()
     {
         return [
-            ['url', null, InputOption::VALUE_OPTIONAL, 'Destination URL for the Contentful webhook', URL::to('/') . '/contentful/flush'],
+            ['url', null, InputOption::VALUE_OPTIONAL, 'Destination URL for the Contentful webhook', (new WebhookCallbackUrlGenerator())->make()],
         ];
     }
 
