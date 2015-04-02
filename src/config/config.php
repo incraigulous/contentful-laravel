@@ -24,12 +24,12 @@ return array(
 
     /*
     |--------------------------------------------------------------------------
-    | Contentful oAuth Token (needed for management API only)
+    | Contentful oAuth Token (needed for management SDK only)
     |--------------------------------------------------------------------------
     |
-    | Instructions for generating an oAuth token can be found in the Contentful's
+    | Instructions for generating an oAuth token can be found in Contentful's
     | Management API documentation. If you are generating it dynamically, you
-    | should create your own Facade for the management API.
+    | should create your own Facade for the management SDK.
     |
     */
     'oauthToken' => '',
