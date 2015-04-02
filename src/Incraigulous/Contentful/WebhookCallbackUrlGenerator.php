@@ -2,28 +2,31 @@
 namespace Incraigulous\Contentful;
 use URL;
 class WebhookCallbackUrlGenerator {
-    protected $defaultWebhookCallback;
+    protected $WebhookUrlBase;
+    protected $WebhookUrlSuffix;
+
     function __construct()
     {
-        $this->defaultWebhookCallback = config('contentful.defaultWebhookCallback');
+        $this->WebhookUrlBase = config('contentful.WebhookUrlBase');
+        $this->WebhookUrlSuffix = config('contentful.WebhookUrlSuffix');
     }
 
     /**
-     * Return the webhook callback URL based on the default webhook callback setting.
+     * Return the webhook callback URL based on the webhook url config settings.
      * @return string
      */
     function make()
     {
-        switch (strtolower($this->defaultWebhookCallback)) {
+        switch (strtolower($this->WebhookUrlBase)) {
             case 'aws':
                 $hostname = file_get_contents("http://instance-data.ec2.internal/latest/meta-data/public-hostname");
-                return "http://{$hostname}/contentful/flush";
-        break;
+                return "http://" . $hostname . $this->WebhookUrlSuffix;
+                break;
             case 'laravel':
-                return URL::to('/') . '/contentful/flush';
-        break;
+                return URL::to('/') . $this->WebhookUrlSuffix;
+                break;
             default:
-                return $this->defaultWebhookCallback;
+                return $this->WebhookUrlBase . $this->WebhookUrlSuffix;
         }
     }
 }
