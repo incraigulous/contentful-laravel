@@ -54,7 +54,7 @@ class ContentfulServiceProvider extends ServiceProvider {
 		});
         $this->app['contentfulManagement'] = $this->app->share(function($app)
         {
-            return new ManagementSDK(config('contentful.oauthToken', config('contentful.space'), new Cacher()));
+            return new ManagementSDK(config('contentful.oauthToken'), config('contentful.space'), new Cacher());
         });
 		$this->app->booting(function()
 		{
