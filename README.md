@@ -2,7 +2,7 @@
 
 A Contentful SDK and suite of tools for Laravel. Includes facades, a base repository, out-of-the-box caching and cache management, webhook creation by artisan command and more.
 
-###This is a Laravel pagkage. 
+###This is a Laravel package. 
 
 ####Looking for the framework agnostic PHP SDK?
 
@@ -65,7 +65,7 @@ Adding the service provider will make two facades available:
 **Contentful**: The content delivery SDK <br />
 **ContentfulManagement**: The management SDK
 
-####Example calls using the content celivery SDK
+####Example calls using the content delivery SDK
 
 The following call would get the first 10 entries for a content type with the word "campus" in the title.
 
@@ -117,14 +117,14 @@ $result = ContentfulManagement::contentTypes()->put('CONTENT_TYPE_ID', $contentT
 ####Caching
 All `GET` request results from the content delivery SDK are cached by default out of the box. `GET` request results from the management SDK are not cached to avoid update version conflicts.
 
-####Clearing your contentful cache via webhook
+####Clearing your Contentful cache via webhook
 You must have have provided your oAuth key in your contentful.php configuration file to create webhooks. To create a new webhook for the cacher to listen for use the Artisan command:
 
 `````
 php artisan contentful:create-webhook
 `````
 
-This will create a webhook in Contentful that will post to your `/contentful/flush` route on any content updates. The package provides that route for you automatically and will flush contentful items from your cache any time that route is posted to.
+This will create a webhook in Contentful that will post to your `/contentful/flush` route on any content updates. The package provides that route for you automatically and will flush Contentful items from your cache any time that route is posted to.
 
 **Here's a trick:** The `/contentful/flush` route takes `get` or `post`, so you can clear your cache anytime by going to `/contentful/flush` in your browser.
 
@@ -149,7 +149,7 @@ php artisan contentful:listen --url='http://www.myurl.com/webhook'
 `````
 
 ####Base Repository
-I've included a base repositroy `Incraigulous\Contentful\EntriesRepositoryBase`. I will fully document it's usage later, but I've decided not to yet. I haven't used it in production yet, and I still want to add some things like pagination and relationship managment. I don't recommend you extend it directly yet, as the API might change. For now, you can use it as an example of how I would use the SDK in Laravel.
+I've included a base repository `Incraigulous\Contentful\EntriesRepositoryBase`. I will fully document it's usage later, but I've decided not to yet. I haven't used it in production yet, and I still want to add some things like pagination and relationship management. I don't recommend you extend it directly yet, as the API might change. For now, you can use it as an example of how I would use the SDK in Laravel.
 
 ###Contributing
 
