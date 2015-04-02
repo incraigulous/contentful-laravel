@@ -10,8 +10,6 @@ use Symfony\Component\HttpFoundation\ParameterBag;
 
 abstract class EntriesRepositoryBase {
     protected $id;
-    protected $cacheTime = 30;
-    protected $cacheTag = 'contentful';
 
     /**
      * Get all entries for content type from contentful.
@@ -109,39 +107,29 @@ abstract class EntriesRepositoryBase {
     /**
      * Unpublish a Contentful entry.
      * @param $id
-     * @param $previousVersionOrPayload
+     * @param null $previous
      * @return mixed
      */
-    public function unpublish($id, $previousVersionOrPayload)
+    public function unpublish($id, $previous = null)
     {
-        if (is_array($previousVersionOrPayload)) {
-            $previousVersion = $previousVersionOrPayload['sys']['version'];
-        } else {
-            $previousVersion = $previousVersionOrPayload;
-        }
-
+        if (!$previous) $previous = $this->get($id);
         return ContentfulManagement::entries()
             ->contentType($this->id)
-            ->unpublish($id, $previousVersion);
+            ->unpublish($id, $previous);
     }
 
     /**
      * Publish a Contentful entry.
      * @param $id
-     * @param $previousVersionOrPayload
+     * @param $previous
      * @return mixed
      */
-    public function publish($id, $previousVersionOrPayload)
+    public function publish($id, $previous)
     {
-        if (is_array($previousVersionOrPayload)) {
-            $previousVersion = $previousVersionOrPayload['sys']['version'];
-        } else {
-            $previousVersion = $previousVersionOrPayload;
-        }
-
+        if (!$previous) $previous = $this->get($id);
         return ContentfulManagement::entries()
             ->contentType($this->id)
-            ->publish($id, $previousVersion);
+            ->publish($id, $previous);
     }
 
     /**
