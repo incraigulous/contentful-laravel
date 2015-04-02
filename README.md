@@ -1,6 +1,6 @@
 # Contentful SDK and Toolkit
 
-A Contentful SDK and suite of tools for lravel. Includes facades, a base repository, out-of-the-box caching and cache management, webhook creation by artisan command and more.
+A Contentful SDK and suite of tools for Laravel. Includes facades, a base repository, out-of-the-box caching and cache management, webhook creation by artisan command and more.
 
 ###This is a Laravel pagkage. 
 
@@ -88,7 +88,7 @@ $result = Contentful::assets()
 
 ####Example calls using the management SDK
 
-Creating a new content type:
+#####Creating a new content type:
 
 `````
 $result = ContentfulManagement::contentTypes()
@@ -156,6 +156,5 @@ I've included a base repositroy `Incraigulous\Contentful\EntriesRepositoryBase`.
 **See a typo or a bug?** Make a pull request.<br />
 **What a new feature?** Make a pull request.<br />
 **Want a new feature and don't know how to build it?** You can always ask, I might be game if I think it's a good enough idea.
-
 
 
