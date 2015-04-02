@@ -142,6 +142,10 @@ php artisan contentful:create-webhook  --url='http://www.myurl.com/webhook'
 
 **Note:** Caching only works if your using the Redis and Memcached cache drivers.
 
+####Overriding CSRF Protection
+
+Laravel comes with cross site forgery protection, so you'll have to override it for the `/contentful/flush` route in order for the webhook to post to your site successfully. [Here's a guide](http://www.techigniter.in/tutorials/disable-csrf-check-on-specific-routes-in-laravel-5/) on how to do that.
+
 ####Listening for webhooks
 If you autoscale your servers, you may need the ability to automatically create a webhook when a server is created and remove it when the server shuts down. You can do this by running the following command via `Supervisor`.
 
