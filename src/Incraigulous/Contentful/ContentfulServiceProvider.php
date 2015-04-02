@@ -50,11 +50,11 @@ class ContentfulServiceProvider extends ServiceProvider {
 	{
 		$this->app['contentful'] = $this->app->share(function($app)
 		{
-            return new DeliverySDK(config('contentful.space'), config('contentful.token'), new Cacher());
+            return new DeliverySDK(config('contentful.token'), config('contentful.space'), new Cacher());
 		});
         $this->app['contentfulManagement'] = $this->app->share(function($app)
         {
-            return new ManagementSDK(config('contentful.space'), config('contentful.oauthToken', new Cacher()));
+            return new ManagementSDK(config('contentful.oauthToken', config('contentful.space'), new Cacher()));
         });
 		$this->app->booting(function()
 		{
