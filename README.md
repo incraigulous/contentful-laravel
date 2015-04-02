@@ -1,6 +1,6 @@
 > ***Pardon my mess! Documenting in progress...***
 
-# Contentful SDK and Toolkit
+# Contentful Laravel SDK and Toolkit 
 
 A Contentful SDK and suite of tools for Laravel. Includes facades, a base repository, out-of-the-box caching and cache management, webhook creation by artisan command and more.
 
