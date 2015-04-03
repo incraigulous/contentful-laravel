@@ -12,7 +12,7 @@ class Cacher implements CacherInterface {
 
     function construct() {
         $this->tag = config('contentful.cacheTag');
-        $this->time = config('contentful.CacheTime');
+        $this->time = config('contentful.cacheTime');
         $this->defaultCache = config('cache.default');
     }
 
