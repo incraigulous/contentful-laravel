@@ -10,7 +10,7 @@
     "require": {
         "php": ">=5.4.0",
         "laravel/framework": "~5.0",
-        "incraigulous/contentful-sdk": "dev-master"
+        "incraigulous/contentful-sdk": "0.0.*"
     },
     "autoload": {
         "psr-0": {
