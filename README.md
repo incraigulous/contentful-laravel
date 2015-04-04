@@ -156,7 +156,7 @@ php artisan contentful:listen --url='http://www.myurl.com/webhook'
 `````
 
 ####Base Repository
-I've included a base repository `Incraigulous\Contentful\EntriesRepositoryBase`. I will fully document it's usage later, but I've decided not to yet. I haven't used it in production yet, and I still want to add some things like pagination and relationship management. I don't recommend you extend it directly yet, as the API might change. For now, you can use it as an example of how I would use the SDK in Laravel.
+I've included a base repository `Incraigulous\Contentful\EntriesRepositoryBase`. I will fully document its usage later, but I've decided not to yet. I haven't used it in production yet, and I still want to add some things like pagination and relationship management. I don't recommend you extend it directly yet, as the API might change. For now, you can use it as an example of how I would use the SDK in Laravel.
 
 ###Contributing
 
