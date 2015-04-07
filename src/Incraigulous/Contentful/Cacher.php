@@ -10,7 +10,7 @@ class Cacher implements CacherInterface {
     protected $time;
     protected $defaultCache;
 
-    function construct() {
+    function __construct() {
         $this->tag = config('contentful.cacheTag');
         $this->time = config('contentful.cacheTime');
         $this->defaultCache = config('cache.default');
@@ -26,7 +26,7 @@ class Cacher implements CacherInterface {
     }
 
     /**
-     * Does the cached item exit?
+     * Does the cached item exist?
      * @param $key
      * @return bool
      */

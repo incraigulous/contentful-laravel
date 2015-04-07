@@ -1,6 +1,7 @@
 {
     "name": "incraigulous/contentful-laravel",
-    "description": "",
+    "description": "A Contentful SDK and toolkit for Laravel.",
+    "license": "MIT",
     "authors": [
         {
             "name": "Craig Wann",
@@ -9,8 +10,12 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "laravel/support": "~5.0",
+        "illuminate/support": "~5.0",
         "incraigulous/contentful-sdk": "0.0.*"
+    },
+    "require-dev": {
+      "orchestra/testbench": "3.1.*",
+      "mockery/mockery": "0.9.*"
     },
     "autoload": {
         "psr-0": {
