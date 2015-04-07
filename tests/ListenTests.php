@@ -13,7 +13,7 @@ use Incraigulous\Contentful\Facades\ContentfulManagement;
 use Orchestra\Testbench\TestCase;
 use Mockery;
 
-class ListenWebhookTests extends TestCase {
+class ListenTests extends TestCase {
 
     protected function getPackageProviders($app)
     {
@@ -25,8 +25,8 @@ class ListenWebhookTests extends TestCase {
     {
         // given
         //
-        ContentfulManagement::shouldReceive('webhooks->post')->once();
-        $cmd = Mockery::mock('Incraigulous\Contentful\Console\Commands\CreateWebhook[option, send]');
+        ContentfulManagement::shouldReceive('webhooks->put')->once();
+        $cmd = Mockery::mock('Incraigulous\Contentful\Console\Commands\Listen[option, send]');
 
         $cmd->shouldReceive("option")
             ->with("url")
@@ -35,10 +35,31 @@ class ListenWebhookTests extends TestCase {
 
         // when
         //
-        $cmd->fire();
+        $cmd->create();
 
         // then
         //
-        $this->assertTrue(true);
+        $this->expectOutputRegex('/created/');
+    }
+
+    public function testDeleteWebhook()
+    {
+        // given
+        //
+        ContentfulManagement::shouldReceive('webhooks->delete')->once();
+        $cmd = Mockery::mock('Incraigulous\Contentful\Console\Commands\Listen[option, send]');
+
+        $cmd->shouldReceive("option")
+            ->with("url")
+            ->once()
+            ->andReturn("adf");
+
+        // when
+        //
+        $cmd->delete();
+
+        // then
+        //
+        $this->expectOutputRegex('/deleted/');
     }
 }

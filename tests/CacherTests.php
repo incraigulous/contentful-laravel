@@ -8,12 +8,14 @@
 
 namespace Incraigulous\Contentful\Tests;
 
-use Incraigulous\Contentful\Console\Commands\CreateWebhook;
+use Incraigulous\Contentful\Cacher;
 use Incraigulous\Contentful\Facades\ContentfulManagement;
 use Orchestra\Testbench\TestCase;
 use Mockery;
+use Config;
+use Cache;
 
-class ListenTests extends TestCase {
+class CacherTests extends TestCase {
 
     protected function getPackageProviders($app)
     {
@@ -21,45 +23,115 @@ class ListenTests extends TestCase {
             'Incraigulous\Contentful\ContentfulServiceProvider'
         ];
     }
-    public function testCreateWebhook()
+    public function testHas()
     {
+        Cache::shouldReceive('tags->has')->once()->andReturn(true);
         // given
         //
-        ContentfulManagement::shouldReceive('webhooks->put')->once();
-        $cmd = Mockery::mock('Incraigulous\Contentful\Console\Commands\Listen[option, send]');
-
-        $cmd->shouldReceive("option")
-            ->with("url")
-            ->once()
-            ->andReturn("adf");
-
-        // when
-        //
-        $cmd->create();
+        Config::set('cache.default', 'memcached');
+        $cacher = new Cacher();
+        $result = $cacher->has('adsfkl');
 
         // then
         //
-        $this->assertTrue(true);
+        $this->assertTrue($result);
     }
 
-    public function testDeleteWebhook()
+    public function testHasNoSupport()
     {
+        Cache::shouldReceive('tags->has')->once()->andReturn(true);
         // given
         //
-        ContentfulManagement::shouldReceive('webhooks->delete')->once();
-        $cmd = Mockery::mock('Incraigulous\Contentful\Console\Commands\Listen[option, send]');
-
-        $cmd->shouldReceive("option")
-            ->with("url")
-            ->once()
-            ->andReturn("adf");
-
-        // when
-        //
-        $cmd->delete();
+        Config::set('cache.default', 'file');
+        $cacher = new Cacher();
+        $result = $cacher->has('adsfkl');
 
         // then
         //
-        $this->assertTrue(true);
+        $this->assertFalse($result);
+    }
+
+    public function testPut()
+    {
+        Cache::shouldReceive('tags->put')->once()->andReturn(true);
+        // given
+        //
+        Config::set('cache.default', 'memcached');
+        $cacher = new Cacher();
+        $result = $cacher->put('adsfkl', array());
+
+        // then
+        //
+        $this->assertTrue($result);
+    }
+
+    public function testPutNoSupport()
+    {
+        Cache::shouldReceive('tags->put')->once()->andReturn(true);
+        // given
+        //
+        Config::set('cache.default', 'file');
+        $cacher = new Cacher();
+        $result = $cacher->put('adsfkl', array());
+
+        // then
+        //
+        $this->assertTrue($result);
+    }
+
+    public function testGet()
+    {
+        Cache::shouldReceive('tags->get')->once()->andReturn(true);
+        // given
+        //
+        Config::set('cache.default', 'memcached');
+        $cacher = new Cacher();
+        $result = $cacher->get('adsfkl');
+
+        // then
+        //
+        $this->assertTrue($result);
+    }
+
+    public function testGetNoSupport()
+    {
+        Cache::shouldReceive('tags->get')->once()->andReturn(true);
+        // given
+        //
+        Config::set('cache.default', 'file');
+        $cacher = new Cacher();
+        $result = $cacher->get('adsfkl');
+
+        // then
+        //
+        $this->assertFalse($result);
+    }
+
+    public function testFlush()
+    {
+        Cache::shouldReceive('tags->flush')->once()->andReturn(true);
+        // given
+        //
+        Config::set('cache.default', 'memcached');
+        $cacher = new Cacher();
+        $result = $cacher->flush('adsfkl');
+
+        // then
+        //
+        $this->assertTrue($result);
+    }
+
+    public function testFlushNoSupport()
+    {
+        Cache::shouldReceive('tags->put')->once()->andReturn(true);
+        // given
+        //
+        Config::set('cache.default', 'file');
+        $cacher = new Cacher();
+        $result = $cacher->flush('adsfkl');
+
+        // then
+        //
+        $this->assertTrue($result);
     }
 }
