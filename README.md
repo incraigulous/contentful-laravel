@@ -71,7 +71,7 @@ Adding the service provider will make two facades available:
 
 ####Example calls using the content delivery SDK
 
-The following call would get the first 10 entries for a content type with the word "campus" in the title.
+The following call would get the first 10 entries for a content type with the word *campus* in the title.
 
 `````
 $result = Contentful::entries()
