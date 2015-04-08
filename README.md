@@ -17,7 +17,7 @@ A Contentful SDK and suite of tools for Laravel. Includes facades, a base reposi
 Install via composer by running:
 
 `````
-composer require incraigulous/contentful-laravel
+composer require "incraigulous/contentful-laravel:0.0.*"
 `````
 
 Update composer:
