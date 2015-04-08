@@ -39,6 +39,6 @@ class CreateWebhookTests extends TestCase {
 
         // then
         //
-        $this->assertTrue(true);
+        $this->expectOutputRegex('/created/');
     }
 }

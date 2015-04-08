@@ -26,8 +26,22 @@ class Listen extends Command {
 
     public function fire()
     {
-        $this->create();
+        if (!$this->exists()) $this->create();
         $this->listen();
+    }
+
+    public function exists() {
+        try {
+            ContentfulManagement::webhooks()->find($this->getWebhookId())->get();
+        } catch (Exception $ex) {
+            if ($ex->getCode() == 404) return false;
+            echo $ex->getMessage();
+            echo PHP_EOL;
+            exit;
+        }
+        echo 'Webhook already exists.';
+        echo PHP_EOL;
+        return true;
     }
 
     public function create() {

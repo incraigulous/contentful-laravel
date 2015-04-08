@@ -21,6 +21,49 @@ class ListenTests extends TestCase {
             'Incraigulous\Contentful\ContentfulServiceProvider'
         ];
     }
+
+    public function testDoesNotExist()
+    {
+        // given
+        //
+        ContentfulManagement::shouldReceive('webhooks->find->get')->once()->andThrow('Exception', 'Not Found', 404);
+        $cmd = Mockery::mock('Incraigulous\Contentful\Console\Commands\Listen[option, send]');
+
+        $cmd->shouldReceive("option")
+            ->with("url")
+            ->once()
+            ->andReturn("adf");
+
+        // when
+        //
+        $result = $cmd->exists();
+
+        // then
+        //
+        $this->assertFalse($result);
+    }
+
+    public function testExists()
+    {
+        // given
+        //
+        ContentfulManagement::shouldReceive('webhooks->find->get')->once();
+        $cmd = Mockery::mock('Incraigulous\Contentful\Console\Commands\Listen[option, send]');
+
+        $cmd->shouldReceive("option")
+            ->with("url")
+            ->once()
+            ->andReturn("adf");
+
+        // when
+        //
+        $result = $cmd->exists();
+
+        // then
+        //
+        $this->assertTrue($result);
+    }
+
     public function testCreateWebhook()
     {
         // given
