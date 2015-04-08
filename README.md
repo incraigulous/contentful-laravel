@@ -1,6 +1,6 @@
 [![Latest Stable Version](https://poser.pugx.org/incraigulous/contentful-laravel/v/stable.svg)](https://packagist.org/packages/incraigulous/contentful-laravel) [![Total Downloads](https://poser.pugx.org/incraigulous/contentful-laravel/downloads.svg)](https://packagist.org/packages/incraigulous/contentful-laravel) [![Latest Unstable Version](https://poser.pugx.org/incraigulous/contentful-laravel/v/unstable.svg)](https://packagist.org/packages/incraigulous/contentful-laravel) [![Daily Downloads](https://poser.pugx.org/incraigulous/contentful-laravel/d/daily.png)](https://packagist.org/packages/incraigulous/contentful-laravel) [![Build Status](https://travis-ci.org/incraigulous/contentful-laravel.svg?branch=master)](https://travis-ci.org/incraigulous/contentful-laravel)
 
-# Contentful Laravel SDK and Toolkit
+# Laravel Contentful SDK and Toolkit
 
 A Contentful SDK and suite of tools for Laravel. Includes facades, a base repository, out-of-the-box caching and cache management, webhook creation by artisan command and more.
 
