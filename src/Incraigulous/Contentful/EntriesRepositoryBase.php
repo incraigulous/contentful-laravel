@@ -6,7 +6,8 @@ use Contentful;
 use ContentfulManagement;
 use Incraigulous\ContentfulSDK\PayloadBuilders\Entry;
 use Incraigulous\ContentfulSDK\PayloadBuilders\Field;
-use Symfony\Component\HttpFoundation\ParameterBag;
+use Incraigulous\Contentful\Model;
+
 
 abstract class EntriesRepositoryBase {
     protected $id;
@@ -27,7 +28,7 @@ abstract class EntriesRepositoryBase {
     /**
      * Get an entry model from Contentful by ID.
      * @param $id
-     * @return Collection
+     * @return Model
      */
     public function find($id)
     {
@@ -35,6 +36,22 @@ abstract class EntriesRepositoryBase {
             Contentful::entries()
                 ->limitByType($this->id)
                 ->find($id)
+                ->get()
+        );
+    }
+
+    /**
+     * Get an entry model from with includes from Contentful by ID.
+     * @param $id
+     * @return Model
+     */
+    public function findWithRelationships($id, $includeDepth = 3)
+    {
+        return $this->getModel(
+            Contentful::entries()
+                ->limitByType($this->id)
+                ->where('sys.id', '=', $id)
+                ->includeLinks($includeDepth)
                 ->get()
         );
     }
@@ -48,7 +65,7 @@ abstract class EntriesRepositoryBase {
      * 3) The get query is not cached to avoid data version conflicts.
      *
      * @param $id
-     * @return Collection
+     * @return Array
      */
     public function get($id)
     {
@@ -61,7 +78,7 @@ abstract class EntriesRepositoryBase {
     /**
      * Create an entry in Contentful.
      * @param $fields
-     * @return StdClass
+     * @return Model
      */
     public function create($fields)
     {
@@ -137,7 +154,8 @@ abstract class EntriesRepositoryBase {
      * @param $id
      * @return mixed
      */
-    public function archive($id) {
+    public function archive($id)
+    {
         return ContentfulManagement::entries()
             ->contentType($this->id)
             ->archive($id);
@@ -148,14 +166,15 @@ abstract class EntriesRepositoryBase {
      * @param $id
      * @return mixed
      */
-    public function unarchive($id) {
+    public function unarchive($id)
+    {
         return ContentfulManagement::entries()
             ->contentType($this->id)
             ->unarchive($id);
     }
 
     /**
-     * Parse a Contentful result and return a collection object for only the fields.
+     * Parse a Contentful result search list and return a collection object for only the fields.
      * @param $result
      * @return Collection
      */
@@ -169,11 +188,21 @@ abstract class EntriesRepositoryBase {
     }
 
     /**
-     * Return a Contentful fields array as a parameter bag.
-     * @param $fields
-     * @return ParameterBag
+     * Return a record as a model. If the result is a search list, return only the first item.
+     * @param $result
+     * @return Model
      */
-    protected function getModel($fields) {
-        return new ParameterBag($fields);
+    protected function getModel($result) {
+        if (isset($result['items'])) return $this->getModelFromList($result);
+        return new Model($result);
+    }
+
+    /**
+     * Return the first item from a search list as a model.
+     * @param $result
+     * @return Model
+     */
+    protected function getModelFromList($result) {
+        return new Model($result['items'][0], $result['includes']);
     }
 }
