@@ -68,7 +68,7 @@ class Model implements Arrayable
         foreach($this->_includeLibrary[$sys['linkType']] as $include) {
             if ($include['sys']['id'] == $sys['id']) {
                 $this->_includesMap[$key][] = ['linkType' => $sys['linkType'], 'id' => $sys['id']];
-                $this->_includes[$sys['linkType']][$sys['id']] = new Model($include, $this->_includeLibrary);
+                $this->_includes[$sys['linkType']][$sys['id']] = ModelFactory::make($include, $this->_includeLibrary, (isset($include['sys']['contentType']['sys']['id'])) ? $include['sys']['contentType']['sys']['id'] : null);
                 return;
             }
         }
@@ -79,11 +79,11 @@ class Model implements Arrayable
      * @param $name
      * @return Model|Collection|null
      */
-    protected function _getIncludesByName($name)
+    protected function _getIncludesByName($name, $forceList = false)
     {
         $map = $this->_includesMap[$name];
         if (empty($map)) return null;
-        if (count($map) == 1) return $this->_includes[$this->_includesMap[0]['linkType']][$this->_includesMap[0]['id']];
+        if ((count($map) == 1) && (!$forceList)) return $this->_includes[$map[0]['linkType']][$map[0]['id']];
 
         $results = [];
         foreach($map as $mapItem) {

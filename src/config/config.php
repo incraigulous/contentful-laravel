@@ -69,4 +69,17 @@ return array(
    */
     'WebhookUrlBase' => 'laravel',  //'aws', 'laravel' or 'custom://url.string'
     'WebhookUrlSuffix' => '/contentful/flush',
+
+    /*
+   |--------------------------------------------------------------------------
+   | Models
+   |--------------------------------------------------------------------------
+   |
+   | Maps content type keys to model namespaces. It is not neccessary to provide custom models.
+   | Models are generated on the fly, but the model class can be extended if you need to add
+   | custom functionality like presenters or relationships to non-contentful models.
+   */
+    'models' => [
+        //'CONTENT_TYPE_KEY' => 'App\Contentful\Models\ContentTypeModel',
+    ]
 );

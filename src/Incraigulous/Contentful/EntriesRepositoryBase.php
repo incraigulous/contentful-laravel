@@ -194,7 +194,7 @@ abstract class EntriesRepositoryBase {
      */
     protected function getModel($result) {
         if (isset($result['items'])) return $this->getModelFromList($result);
-        return new Model($result);
+        return ModelFactory::make($result, [], $this->id);
     }
 
     /**
@@ -203,6 +203,6 @@ abstract class EntriesRepositoryBase {
      * @return Model
      */
     protected function getModelFromList($result) {
-        return new Model($result['items'][0], $result['includes']);
+        return ModelFactory::make($result['items'][0], $result['includes'], $this->id);
     }
 }
