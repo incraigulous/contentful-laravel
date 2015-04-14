@@ -38,6 +38,7 @@ class Model implements Arrayable
         foreach ($resource['fields'] as $key => $field) {
             $this->_extractLinks($key, $field);
         }
+        $this->_setDynamicFields();
     }
 
     /**
@@ -121,6 +122,79 @@ class Model implements Arrayable
      * @return mixed
      */
     public function toArray()
+    {
+        $array = [];
+        foreach($this->_resource['fields'] as $key => $value) {
+            $array[$key] = $this->_convertFieldLinks($value);
+        }
+        return $array;
+    }
+
+    /**
+     * Convert resource field links to a multi array.
+     * @param $field
+     * @return array
+     */
+    protected function _convertFieldLinks($field)
+    {
+        if (!is_array($field)) return $field;
+        $array = [];
+        foreach($field as $key => $value) {
+            if ((isset($value['type'])) && ($value['type'] == 'Link')) {
+                return $this->_convertFieldLinks(
+                    $this->getIncludeFromLibrary($value['linkType'], $value['id'])->toArray()
+                );
+            } else {
+                $array[$key] = $this->_convertFieldLinks($value);
+            }
+        }
+
+        return $array;
+    }
+
+    /**
+     * Array to generate dynamic fields.
+     * ['key' => method()]
+     * @return array
+     */
+    protected function dynamicFields()
+    {
+        return [];
+    }
+
+    /**
+     * Set dynamic fields.
+     * @return array
+     */
+    protected function _setDynamicFields()
+    {
+        $fields = $this->dynamicFields();
+        foreach($fields as $key => $content) {
+            $this->_resource['fields'][$key] = $content;
+        }
+
+
+    }
+
+    /**
+     * Get an include model from the library.
+     * @param $type
+     * @param $id
+     * @return Model|null
+     */
+    public function getIncludeFromLibrary($type, $id)
+    {
+        foreach($this->_includeLibrary[$type] as $item) {
+            if ($id == $item['sys']['id']) return ModelFactory::make($item, $this->_includeLibrary, (isset($item['sys']['contentType']['sys']['id'])) ? $item['sys']['contentType']['sys']['id'] : null);
+        }
+        return null;
+    }
+
+    /**
+     * Return the fields as an array.
+     * @return mixed
+     */
+    public function getFields()
     {
         return $this->_resource['fields'];
     }
