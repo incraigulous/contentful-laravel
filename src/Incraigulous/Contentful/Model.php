@@ -94,12 +94,21 @@ class Model implements Arrayable
     }
 
     /**
-     * Overload paramater calls to resource fields.
+     * Overload parameter calls to resource fields.
      * @param $name
      * @return null
      */
     public function __get($name)
     {
+        return $this->getField($name);
+    }
+
+    /**
+     * Get a field by name.
+     * @param $name
+     * @return null
+     */
+    public function getField($name) {
         if (array_key_exists($name, $this->_resource['fields'])) {
             return $this->_resource['fields'][$name];
         }
@@ -125,7 +134,7 @@ class Model implements Arrayable
     {
         $array = [];
         foreach($this->_resource['fields'] as $key => $value) {
-            $array[$key] = $this->_convertFieldLinks($value);
+            $array[$key] = $this->_convertFieldLinks($key, $value);
         }
         return $array;
     }
@@ -135,17 +144,17 @@ class Model implements Arrayable
      * @param $field
      * @return array
      */
-    protected function _convertFieldLinks($field)
+    protected function _convertFieldLinks($name, $field)
     {
-        if (!is_array($field)) return $field;
+        if (!is_array($field)) return ($this->getField($name)) ? $this->getField($name) : $field;
         $array = [];
         foreach($field as $key => $value) {
             if ((isset($value['type'])) && ($value['type'] == 'Link')) {
-                return $this->_convertFieldLinks(
+                return $this->_convertFieldLinks($key,
                     $this->getIncludeFromLibrary($value['linkType'], $value['id'])->toArray()
                 );
             } else {
-                $array[$key] = $this->_convertFieldLinks($value);
+                $array[$key] = $this->_convertFieldLinks($key, $value);
             }
         }
 
