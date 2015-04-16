@@ -153,9 +153,7 @@ class Model implements Arrayable
                 $model = $this->getIncludeFromLibrary($value['linkType'], $value['id']);
                 //No include found in library. This is probably a circular include.
                 if (!is_object($model)) return null;
-                return $this->_convertFieldLinks($key,
-                    $model->toArray()
-                );
+                return $model->toArray();
             } else {
                 $array[$key] = $this->_convertFieldLinks($key, $value);
             }
