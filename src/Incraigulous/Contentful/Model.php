@@ -140,7 +140,7 @@ class Model implements Arrayable
     }
 
     /**
-     * Convert resource field links to a multi array.
+     * Recursively convert resource field links to a multi array.
      * @param $field
      * @return array
      */
@@ -150,8 +150,11 @@ class Model implements Arrayable
         $array = [];
         foreach($field as $key => $value) {
             if ((isset($value['type'])) && ($value['type'] == 'Link')) {
+                $model = $this->getIncludeFromLibrary($value['linkType'], $value['id']);
+                //No include found in library. This is probably a circular include.
+                if (!is_object($model)) return null;
                 return $this->_convertFieldLinks($key,
-                    $this->getIncludeFromLibrary($value['linkType'], $value['id'])->toArray()
+                    $model->toArray()
                 );
             } else {
                 $array[$key] = $this->_convertFieldLinks($key, $value);
@@ -197,6 +200,20 @@ class Model implements Arrayable
             if ($id == $item['sys']['id']) return ModelFactory::make($item, $this->_includeLibrary, (isset($item['sys']['contentType']['sys']['id'])) ? $item['sys']['contentType']['sys']['id'] : null);
         }
         return null;
+    }
+
+    /**
+     * Does an include exist in the includes library?
+     * @param $type
+     * @param $id
+     * @return bool
+     */
+    protected function includeExistsInLibrary($type, $id)
+    {
+        foreach($this->_includeLibrary[$type] as $item) {
+            if ($id == $item['sys']['id']) return true;
+        }
+        return false;
     }
 
     /**
