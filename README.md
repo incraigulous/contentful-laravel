@@ -4,13 +4,15 @@
 
 A Contentful SDK and suite of tools for Laravel. Includes facades, a base repository, out-of-the-box caching and cache management, webhook creation by artisan command and more.
 
+>**Note:** This package was just released. It has been unit tested and I've manually tested every call I could think of. I believe everything is stable and working. I'll bump it up to 1.0 as soon as I (or someone else) has a chance to try it out in production. I'm still working on some things, like the base repository and relationship managemnet. I won't change the API for anything I have documented, so if I tell you how to use it, use it.
+
 ###This is a Laravel package.
 
 ####Looking for the framework agnostic PHP SDK?
 
 [Click Here](https://github.com/incraigulous/contentful-sdk) for my Contentful PHP SDK used by this package.
 
-> ***New to Contentful?*** Check out their [website](https://www.contentful.com/) and [API documentation](https://www.contentful.com/developers/documentation/content-delivery-api/).
+> ***New to Contentful?*** Contentful is an API driven CMS. Check out their [website](https://www.contentful.com/) and [API documentation](https://www.contentful.com/developers/documentation/content-delivery-api/).
 
 ##Installation
 
