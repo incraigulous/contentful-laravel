@@ -203,6 +203,7 @@ abstract class EntriesRepositoryBase {
      * @return Model
      */
     protected function getModelFromList($result) {
+    		$includes = isset( $result['includes'] ) ? $includes : array();
         return ModelFactory::make($result['items'][0], $result['includes'], $this->id);
     }
 }
