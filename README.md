@@ -4,8 +4,6 @@
 
 A Contentful SDK and suite of tools for Laravel. Includes facades, a base repository, out-of-the-box caching and cache management, webhook creation by artisan command and more.
 
->**Note:** This package was just released. It has been unit tested and I've manually tested every call I could think of. I believe everything is stable and working. I'll bump it up to 1.0 as soon as I (or someone else) has a chance to try it out in production. I'm still working on some things, like the base repository and relationship managemnet. I won't change the API for anything I have documented, so if I tell you how to use it, use it.
-
 ###This is a Laravel package.
 
 ####Looking for the framework agnostic PHP SDK?
@@ -158,9 +156,6 @@ OR
 php artisan contentful:listen --url='http://www.myurl.com/webhook'
 
 `````
-
-####Base Repository
-I've included a base repository `Incraigulous\Contentful\EntriesRepositoryBase`. I will fully document its usage later, but I've decided not to yet. I haven't used it in production yet, and I still want to add some things like pagination and relationship management. I don't recommend you extend it directly yet, as the API might change. For now, you can use it as an example of how I would use the SDK in Laravel.
 
 ###Contributing
 
